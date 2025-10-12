@@ -1,14 +1,20 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Field, FieldGroup } from "@/components/ui/field";
 import Image from "next/image";
 import coverImage from "./login-form-cover.jpg";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const router = useRouter();
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden p-0">
@@ -22,7 +28,15 @@ export function LoginForm({
                 </p>
               </div>
               <Field>
-                <Button type="submit" className="w-full">
+                <Button
+                  onClick={() => {
+                    authClient.signIn.anonymous().then(() => {
+                      router.push("/mypage");
+                    });
+                  }}
+                  type="button"
+                  className="w-full"
+                >
                   ゲストでログイン
                 </Button>
               </Field>
