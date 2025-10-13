@@ -3,13 +3,9 @@ import { users } from "./auth";
 import { nanoid } from "nanoid";
 import { relations } from "drizzle-orm";
 
-export const contactMethodEnum = pgEnum("contact_method", [
-  "phone",
-  "counter",
-  "visit",
-  "email",
-  "online",
-]);
+export const contactMethods = ["phone", "counter", "visit", "email", "online"] as const;
+
+export const contactMethodEnum = pgEnum("contact_method", contactMethods);
 
 export const conversations = pgTable("conversations", {
   id: text("id").primaryKey().$defaultFn(() => nanoid(10)),
