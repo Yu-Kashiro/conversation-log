@@ -11,8 +11,9 @@ export async function createConversation(formData: ConversationFormData) {
   const data = conversationFormSchema.parse(formData);
   const session = await verifySession();
   const caseworkerId = session.user.id;
+  const createdBy = session.user.id;
 
-  await db.insert(conversations).values({ ...data, caseworkerId });
+  await db.insert(conversations).values({ ...data, caseworkerId, createdBy });
 }
 
 export async function updateConversation(
