@@ -5,7 +5,7 @@ export function Header() {
     <header className="sticky top-0 border-b">
       <div className="container mx-auto flex h-16 items-center justify-between">
         <Link href="/" className="text-xl font-bold hover:opacity-80 transition-opacity">
-          ConversationLog
+          Conversation Log
         </Link>
         <nav>
           <Link
