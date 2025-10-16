@@ -1,5 +1,7 @@
 import { Conversation } from "@/types/conversation";
-import { Card, CardContent } from "./ui/card";
+import { Card, CardContent, CardFooter } from "./ui/card";
+import { Button } from "./ui/button";
+import Link from "next/link";
 
 export function ConversationCard({
   conversation,
@@ -21,6 +23,13 @@ export function ConversationCard({
         </p>
         <p className="text-sm text-muted-foreground">{conversation.content}</p>
       </CardContent>
+      <CardFooter>
+        <Button asChild>
+          <Link href={`/conversations/${conversation.id}`}>
+            編集
+          </Link>
+          </Button>
+      </CardFooter>
     </Card>
   );
 }
