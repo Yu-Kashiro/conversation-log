@@ -1,5 +1,6 @@
 import { ConversationCard } from "@/components/conversation-card";
 import { getConversations } from "@/data/conversations";
+import Link from "next/link";
 
 export default async function ConversationsPage() {
   const conversations = await getConversations();
@@ -10,7 +11,9 @@ export default async function ConversationsPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {conversations.map((conversation) => (
           <div key={conversation.id}>
-            <ConversationCard conversation={conversation} />
+            <Link href={`/conversations/${conversation.id}`}>
+              <ConversationCard conversation={conversation} />
+            </Link>
           </div>
         ))}
       </div>
