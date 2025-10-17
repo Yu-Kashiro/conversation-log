@@ -21,18 +21,12 @@ export async function updateConversation(
   formData: ConversationFormData
 ) {
   const data = conversationFormSchema.parse(formData);
-  const session = await verifySession();
-  const caseworkerId = session.user.id;
+  await verifySession();
 
   await db
     .update(conversations)
-    .set({ ...data, caseworkerId })
-    .where(
-      and(
-        eq(conversations.id, id),
-        eq(conversations.caseworkerId, caseworkerId)
-      )
-    );
+    .set({ ...data })
+    .where(and(eq(conversations.id, id)));
 }
 
 export async function deleteConversation(id: string) {

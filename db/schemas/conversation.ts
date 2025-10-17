@@ -3,12 +3,30 @@ import { users } from "./auth";
 import { nanoid } from "nanoid";
 import { relations } from "drizzle-orm";
 
-export const contactMethods = ["phone", "counter", "visit", "email", "online"] as const;
-
+export const contactMethods = [
+  "phone",
+  "counter",
+  "visit",
+  "email",
+  "online",
+] as const;
 export const contactMethodEnum = pgEnum("contact_method", contactMethods);
 
+export const contactMethodLabels: Record<
+  (typeof contactMethods)[number],
+  string
+> = {
+  phone: "電話",
+  counter: "窓口",
+  visit: "訪問",
+  email: "メール",
+  online: "オンライン",
+};
+
 export const conversations = pgTable("conversations", {
-  id: text("id").primaryKey().$defaultFn(() => nanoid(10)),
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => nanoid(10)),
   targetPerson: text("target_person").notNull(),
   caseworkerId: text("caseworker_id")
     .notNull()

@@ -1,7 +1,5 @@
 import { Conversation } from "@/types/conversation";
-import { Card, CardContent, CardFooter } from "./ui/card";
-import { Button } from "./ui/button";
-import Link from "next/link";
+import { Card, CardContent } from "./ui/card";
 
 export function ConversationCard({
   conversation,
@@ -21,15 +19,8 @@ export function ConversationCard({
         <p className="text-sm text-muted-foreground">
           連絡方法: {conversation.contactMethod}
         </p>
-        <p className="text-sm text-muted-foreground">{conversation.content}</p>
+        <p className="text-sm text-muted-foreground truncate">{conversation.content}</p>
       </CardContent>
-      <CardFooter>
-        <Button asChild>
-          <Link href={`/conversations/${conversation.id}`}>
-            編集
-          </Link>
-          </Button>
-      </CardFooter>
     </Card>
   );
 }
