@@ -1,6 +1,6 @@
 "use client";
 
-import { createConversation, updateConversation } from "@/actions/conversation";
+import { createConversation, deleteConversation, updateConversation } from "@/actions/conversation";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -34,6 +34,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { DeleteButton } from "./deleteButton";
 
 export default function ConversationForm({
   id,
@@ -78,6 +79,17 @@ export default function ConversationForm({
       );
     }
   };
+
+  const onDelete = async (id: string) => {
+    try {
+      await deleteConversation(id);
+      toast("相談内容を削除しました。")
+      router.push("/conversations")
+    } catch (error) {
+      toast.error("相談内容を削除に失敗しました。")
+      console.error("error:", error)
+    }
+  }
 
   return (
     <Card>
@@ -178,6 +190,7 @@ export default function ConversationForm({
             />
 
             <div className="flex justify-end gap-4">
+              <DeleteButton onClick={() => onDelete(id)}>削除する</DeleteButton>
               <Button
                 type="button"
                 variant="outline"

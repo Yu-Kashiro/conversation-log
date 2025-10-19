@@ -1,7 +1,7 @@
 import { ConversationCard } from "@/components/conversation-card";
 import ConversationForm from "@/components/conversation-form";
 import { getConversation } from "@/data/conversations";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 export default async function ConversationPage({
   params,
@@ -10,7 +10,7 @@ export default async function ConversationPage({
   const conversation = await getConversation(conversationId);
 
   if (!conversation) {
-    notFound();
+    redirect("/conversations");
   }
 
   return (
