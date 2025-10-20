@@ -1,16 +1,21 @@
 import { ConversationCard } from "@/components/conversation-card";
 import ConversationForm from "@/components/conversation-form";
-import { getConversation } from "@/data/conversations";
-import { notFound, redirect } from "next/navigation";
+import { getConversation, isConversationOwner } from "@/data/conversations";
+import { redirect } from "next/navigation";
 
 export default async function ConversationPage({
   params,
 }: PageProps<"/conversations/[id]">) {
   const conversationId = (await params).id;
   const conversation = await getConversation(conversationId);
+  const isOwner = await isConversationOwner(conversationId);
 
   if (!conversation) {
     redirect("/conversations");
+  }
+
+  if (!isOwner) {
+    return "あなたには編集権限がありません。"
   }
 
   return (
