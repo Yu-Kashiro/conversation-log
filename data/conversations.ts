@@ -1,14 +1,23 @@
 import "server-only";
 import { db } from "@/db";
 import { conversations } from "@/db/schemas/conversation";
-import { and, eq } from "drizzle-orm";
+import { and, eq, ilike } from "drizzle-orm";
 import { verifySession } from "@/lib/session";
 
 export const getConversations = async () => {
-  return db.query.conversations.findMany();
+  return db.query.conversations.findMany({
+    limit: 10
+  });
 };
 
-export const getConversation = async (id: string) => {
+export const searchConversations = async (name: string) => {
+  return db.query.conversations.findMany({
+    where: ilike(conversations.targetPerson, `%${name}%`),
+    limit: 10,
+  });
+};
+
+export const getConversation = async (id: string ) => {
   return db.query.conversations.findFirst({
     where: eq(conversations.id, id),
   });
