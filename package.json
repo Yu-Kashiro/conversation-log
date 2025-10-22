@@ -7,6 +7,7 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
+    "seed": "pnpx tsx db/seed.ts",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
