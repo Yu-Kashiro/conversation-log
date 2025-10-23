@@ -3,6 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { getBaseURL } from "@/lib/get-base-url";
+import { Footer } from "@/components/footer";
+import { Toaster } from "@/components/ui/sonner";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,10 +34,14 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} min-h-dvh antialiased`}
       >
-        <Header />
-        {children}
+        <NuqsAdapter>
+          <Header />
+          {children}
+          <Toaster />
+          <Footer />
+        </NuqsAdapter>
       </body>
     </html>
   );
